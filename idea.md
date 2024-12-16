@@ -1,6 +1,6 @@
 # Idea
 
-+ [ ] Load data
++ [X] Load data
 + [ ] Observe data
 + [ ] Find current solution in public
 + [ ] Build pipeline
