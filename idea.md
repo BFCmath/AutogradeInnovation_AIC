@@ -9,7 +9,7 @@
 + [ ]  Process the error in the labels
   + [X] Detect the error
   + [X] Make a web reader to analyze the error
-  + [ ] Predict and confirm the error
+  + [X] Predict and confirm the error
   + [ ] Process the error
 + [ ] Dive deep into public solution
 + [ ] Propose solutions
@@ -35,4 +35,17 @@
 
 + Missing some bounding boxes
 + Duplicate bounding boxes
++ Redundant bounding boxes
 + Bounding boxes is not even
+
+### Second observation on the dataset
+
++ It seems that all the images have the same format
++ The trainging data is split into each batch of 260 iters
++ Within the same batch, the images have the same type of error
+
+### Third observation on the dataset
+
++ The bounding boxes are not even
++ We can using the black squares to get relative position of each bounding box window.
++ There are yellow streaks in the images

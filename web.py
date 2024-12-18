@@ -1,14 +1,19 @@
-from flask import Flask, render_template_string, request, send_from_directory
+from flask import Flask, render_template_string, request, Response
 import pandas as pd
 import os
 import cv2
-from flask import Response
 
 app = Flask(__name__)
 
+# Directories for images and labels
+image_dir = 'data/Trainning_SET/Images'
+# label_dir = 'data/Trainning_SET/Labels'
+label_dir = 'data/created/processed_label'
+
 # Load the CSV file and get the image paths
-df = pd.read_csv('data\created\\training.csv')
-image_paths = [os.path.join('data/Trainning_SET/Images', path) for path in df['image_name'].tolist()]
+df = pd.read_csv('data/created/label_4160_4420.csv')
+# df = pd.read_csv('data/created/training.csv')
+image_paths = [os.path.join(image_dir, path) for path in df['image_name'].tolist()]
 
 # Function to draw YOLO bounding boxes
 def draw_yolo_bboxes(image_path, label_path, mode="score"):
@@ -53,7 +58,7 @@ def draw_yolo_bboxes(image_path, label_path, mode="score"):
         font = cv2.FONT_HERSHEY_SIMPLEX
         font_scale = 0.5
         text_thickness = 2
-        cv2.putText(img, label, (x1+(i%2)*10, y1 - 5+(i%3)*7), font, font_scale, color2, text_thickness)
+        cv2.putText(img, label, (x1 + (i % 2) * 10, y1 - 5 + (i % 3) * 7), font, font_scale, color2, text_thickness)
     
     _, buffer = cv2.imencode('.jpg', img)
     return buffer.tobytes()
@@ -111,15 +116,16 @@ def index():
             else:
                 images = []
         except Exception as e:
-            print(e)
+            print(f"Error: {e}")
             images = []
     return render_template_string(template, images=images)
 
 @app.route('/yolo_image/<path:filename>/<mode>')
 def yolo_image(filename, mode):
-    image_path = filename
-    label_path = filename.replace(".jpg", ".txt").replace("Images", "Labels")
-    img_bytes = draw_yolo_bboxes(image_path, label_path, mode)
+    # Extract image name from the path and find the corresponding label file
+    image_name = os.path.basename(filename)
+    label_path = os.path.join(label_dir, f"{image_name.split('.')[0]}.txt")
+    img_bytes = draw_yolo_bboxes(filename, label_path, mode)
     if img_bytes:
         return Response(img_bytes, mimetype='image/jpeg')
     else:
