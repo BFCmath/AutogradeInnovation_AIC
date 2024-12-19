@@ -2,17 +2,21 @@ from flask import Flask, render_template_string, request, Response
 import pandas as pd
 import os
 import cv2
+import sys
+
+# Add parent directory to Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 app = Flask(__name__)
 
 # Directories for images and labels
 image_dir = 'data/Trainning_SET/Images'
-# label_dir = 'data/Trainning_SET/Labels'
-label_dir = 'data/created/processed_label'
+label_dir = 'data/Trainning_SET/Labels'
+# label_dir = 'data/created/processed_label'
 
 # Load the CSV file and get the image paths
-df = pd.read_csv('data/created/label_4160_4420.csv')
-# df = pd.read_csv('data/created/training.csv')
+# df = pd.read_csv('data/created/label_3120_3380.csv')
+df = pd.read_csv('data/created/training.csv')
 image_paths = [os.path.join(image_dir, path) for path in df['image_name'].tolist()]
 
 # Function to draw YOLO bounding boxes
