@@ -1,4 +1,4 @@
-# Idea
+# IDEA
 
 ## TODO
 
@@ -11,6 +11,10 @@
   + [X] Make a web reader to analyze the error
   + [X] Predict and confirm the error
   + [ ] Process the error
+    + [X] Remove the duplicates
+    + [ ] Remove the redundants
+    + [ ] Replace the missings
+  + [ ] Cutting images
 + [ ] Dive deep into public solution
 + [ ] Propose solutions
 + [ ] Build pipeline
@@ -48,4 +52,10 @@
 
 + The bounding boxes are not even
 + We can using the black squares to get relative position of each bounding box window.
-+ There are yellow streaks in the images
++ There are yellow streaks in some images
+
+### Cutting images
+
++ Based on the black squared contours at the corners, we can effectively detect them and cutting the images.
++ But there are still some error from the images so we cannot rely completely on the contour detective algorithm.
++ So we will use some default pivot to check if the algorithm detecting the contour in those regions.
