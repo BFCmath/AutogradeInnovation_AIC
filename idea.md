@@ -6,18 +6,19 @@
 + [X] Observe data
 + [X] Find current solution in public (not dive deep yet)
 + [X] Save the training set into a csv
++ [X] Dive deep into public solution
 + [ ]  Process the error in the labels
   + [X] Detect the error
   + [X] Make a web reader to analyze the error
   + [X] Predict and confirm the error
-  + [ ] Process the error
-    + [X] Remove the duplicates
-    + [ ] Remove the redundants
-    + [ ] Replace the missings
   + [ ] Cutting images
     + [X] Detect the contours
     + [X] Sort the contours
-+ [ ] Dive deep into public solution
+  + [ ] Process the error
+    + [ ] Remove the duplicates
+    + [ ] Remove the redundants
+    + [ ] Replace the missings
+  
 + [ ] Propose solutions
 + [ ] Build pipeline
 + [ ] Try opencv approach (augmentation)
