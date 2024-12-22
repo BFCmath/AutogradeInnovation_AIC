@@ -16,6 +16,7 @@
     + [ ] Replace the missings
   + [ ] Cutting images
     + [X] Detect the contours
+    + [X] Sort the contours
 + [ ] Dive deep into public solution
 + [ ] Propose solutions
 + [ ] Build pipeline
