@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import os
 import pandas as pd
-
+from tqdm import tqdm 
 # Cropping logic (using the matrix indices you provided)
 crop_instructions = [
     ("SBD", [1, 0, 1, 1, 2, 0, 2, 1]),  # mat[1][0], mat[1][1], mat[2][0], mat[2][1]
@@ -146,8 +146,8 @@ def cut_image_based_on_matrix(image_path, matrix, output_dir):
                 cut_images_count += 1
             else:
                 print(f"Warning: Invalid inner rectangle for crop '{crop_name}'. Skipping.")
-
-    print(f"Cropped {cut_images_count} images from {image_name}")
+    if(cut_images_count !=16):
+        print(f"Cropped {cut_images_count} images from {image_name}")
 
     
 
@@ -346,3 +346,73 @@ def reverse_cropped_labels(cropped_label_dir, original_image_path, matrix, outpu
             out_file.write(label + "\n")
 
     print(f"Reversed labels saved to: {output_label_path}")
+    
+def process_images_in_folder(image_folder, label_folder, sorted_contours_folder, output_dir):
+    """
+    Processes all images in a folder, cuts them, creates cropped labels, and generates a CSV summary.
+
+    Args:
+        image_folder: Path to the folder containing original images.
+        label_folder: Path to the folder containing original YOLO label files.
+        sorted_contours_folder: Path to the folder containing sorted contours files.
+        output_dir: Base directory to save output (cropped images, labels, and CSV).
+        crop_instructions: List of tuples defining the cropping logic.
+    """
+
+    cropped_image_dir = os.path.join(output_dir, "cropped_images")
+    cropped_label_dir = os.path.join(output_dir, "cropped_labels")
+    csv_path = os.path.join(output_dir, "preprocessed_cropped_data.csv")
+
+    os.makedirs(cropped_image_dir, exist_ok=True)
+    os.makedirs(cropped_label_dir, exist_ok=True)
+
+    results = []
+
+    for image_file in tqdm(os.listdir(image_folder)):
+        if image_file.endswith(".jpg"):
+            image_name = os.path.splitext(image_file)[0]
+            image_path = os.path.join(image_folder, image_file)
+            label_path = os.path.join(label_folder, f"{image_name}.txt")
+            sorted_contours_path = os.path.join(sorted_contours_folder, f"{image_name}_contours_sorted.txt")
+
+            # Check if corresponding label and contours files exist
+            if not os.path.exists(label_path):
+                print(f"Warning: Label file not found for {image_file}. Skipping.")
+                continue
+            if not os.path.exists(sorted_contours_path):
+                print(f"Warning: Sorted contours file not found for {image_file}. Skipping.")
+                continue
+
+            # Read and convert sorted contours to matrix
+            sorted_contours = read_sorted_contours(sorted_contours_path)
+            if sorted_contours is None:
+                print(f"Warning: Error reading or processing sorted contours for {image_file}. Skipping.")
+                continue
+            matrix = convert_sorted_contours_to_matrix(sorted_contours)
+
+            # Cut the image based on the matrix and crop instructions
+            cut_image_based_on_matrix(image_path, matrix, cropped_image_dir)
+
+            # Create cropped labels
+            create_cropped_labels(image_path, matrix, label_path, cropped_label_dir)
+
+            # Collect information for CSV
+            for crop_name, _ in crop_instructions:
+                cropped_label_file = os.path.join(cropped_label_dir, f"{image_name}_{crop_name}.txt")
+                num_labels = 0
+                if os.path.exists(cropped_label_file):
+                    with open(cropped_label_file, 'r') as f:
+                        num_labels = len(f.readlines())
+
+                results.append({
+                    "image_name": f"{image_name}_{crop_name}.jpg",
+                    "org_name": image_file,
+                    "type": crop_name,
+                    "label_name": f"{image_name}_{crop_name}.txt",
+                    "number_label": num_labels
+                })
+
+    # Create a Pandas DataFrame and save to CSV
+    df = pd.DataFrame(results)
+    df.to_csv(csv_path, index=False)
+    print(f"CSV summary saved to: {csv_path}")
