@@ -3,7 +3,12 @@ import json
 from tqdm import tqdm
 import os
 import numpy as np
-
+from matplotlib import pyplot as plt
+def show_sheet(sheet):
+    plt.figure(figsize=(20, 10))
+    plt.imshow(sheet)
+    plt.show()
+    
 # Attempt 1
 
 # Updated find_contour function
