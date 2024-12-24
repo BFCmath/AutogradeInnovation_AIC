@@ -13,8 +13,8 @@ app = Flask(__name__)
 
 # Paths (Updated)
 image_dir = "data/cropped_images"  
-label_dir = "data/std_num_bbox_labels" 
-data_csv_path = "data/std_num_bbox_data.csv"
+label_dir = "data/std_labels" 
+data_csv_path = "data/std_labels_data.csv"
 
 # Load image data from CSV
 def load_data(data_csv_path):
@@ -178,4 +178,4 @@ def render_image(filename):
         return "Image not found or could not be processed.", 404
 
 if __name__ == "__main__":
-    app.run(debug=True,port=8000)
+    app.run(debug=True)
