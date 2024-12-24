@@ -115,7 +115,7 @@ def process_files(image_folder, label_folder, pivots, save_log_path, error_log_p
             continue
 
         image_path = os.path.join(image_folder, image_name)
-        label_path = os.path.join(label_folder, os.path.splitext(image_name)[0] + ".txt")
+        # label_path = os.path.join(label_folder, os.path.splitext(image_name)[0] + ".txt")
 
         # Find contours in the image
         img, contours = detect_black_squares(image_path)
