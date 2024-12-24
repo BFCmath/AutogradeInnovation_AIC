@@ -12,18 +12,19 @@
   + [X] Detect the error
   + [X] Make a web reader to analyze the error
   + [X] Predict and confirm the error
-  + [ ] Cutting images
+  + [X] Cutting images
     + [X] Detect the contours
     + [X] Sort the contours
-  + [ ] Process the error
+  + [X] Process the error
     + [X] Remove the duplicates
-    + [ ] Remove the redundants
-    + [ ] Replace the missings
+    + [X] Remove the redundants
+    + [X] Replace the missings
+  + [ ] Replace the 2-labeled bboxes with true labels
 + [ ] Build pipeline
   + [X] Detecting the contours
   + [X] Sorting the contours
   + [X] Cutting the images
-  + [ ] Processing the error
+  + [ ] End-to-end pipeline
 + [ ] Finetune the model
   + [ ] Augment the data
   + [ ] Yolov8
