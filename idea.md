@@ -8,7 +8,7 @@
 + [X] Save the training set into a csv
 + [X] Dive deep into public solution
 + [X] Propose solutions
-+ [ ] Process the error in the labels
++ [X] Process the error in the labels
   + [X] Detect the error
   + [X] Make a web reader to analyze the error
   + [X] Predict and confirm the error
@@ -19,7 +19,7 @@
     + [X] Remove the duplicates
     + [X] Remove the redundants
     + [X] Replace the missings
-  + [ ] Replace the 2-labeled bboxes with true labels
+  + [X] Replace the 2-labeled bboxes with true labels
 + [ ] Build pipeline
   + [X] Detecting the contours
   + [X] Sorting the contours
@@ -27,12 +27,12 @@
   + [ ] End-to-end pipeline
 + [ ] Finetune the model
   + [ ] Augment the data
-  + [ ] Yolov8
+  + [X] Yolov8
   + [ ] Analyze the error
 + [ ] Predict testing set 1
-  + [ ] Detect the contours
-  + [ ] Sort the contours
-  + [ ] Cut the images
+  + [X] Detect the contours
+  + [X] Sort the contours
+  + [X] Cut the images
   + [ ] Inference the images using fine-tuned model
 
 ## Observations
