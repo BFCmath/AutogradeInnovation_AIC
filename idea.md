@@ -7,7 +7,8 @@
 + [X] Find current solution in public (not dive deep yet)
 + [X] Save the training set into a csv
 + [X] Dive deep into public solution
-+ [ ]  Process the error in the labels
++ [X] Propose solutions
++ [ ] Process the error in the labels
   + [X] Detect the error
   + [X] Make a web reader to analyze the error
   + [X] Predict and confirm the error
@@ -15,13 +16,23 @@
     + [X] Detect the contours
     + [X] Sort the contours
   + [ ] Process the error
-    + [ ] Remove the duplicates
+    + [X] Remove the duplicates
     + [ ] Remove the redundants
     + [ ] Replace the missings
-  
-+ [ ] Propose solutions
 + [ ] Build pipeline
-+ [ ] Try opencv approach (augmentation)
+  + [X] Detecting the contours
+  + [X] Sorting the contours
+  + [X] Cutting the images
+  + [ ] Processing the error
++ [ ] Finetune the model
+  + [ ] Augment the data
+  + [ ] Yolov8
+  + [ ] Analyze the error
++ [ ] Predict testing set 1
+  + [ ] Detect the contours
+  + [ ] Sort the contours
+  + [ ] Cut the images
+  + [ ] Inference the images using fine-tuned model
 
 ## Observations
 
@@ -62,3 +73,21 @@
 + Based on the black squared contours at the corners, we can effectively detect them and cutting the images.
 + But there are still some error from the images so we cannot rely completely on the contour detective algorithm.
 + So we will use some default pivot to check if the algorithm detecting the contour in those regions.
++ After using default pivot, if there are still some undetected contours, we will use stack appoarch to detect the contours (without using the pivot)
++ After that, if there are still some undetected contours, we will manually detect the contours based on rules.
++ And after all of that, we can finally cut the images based on some rules we have defined.
++ And also, we need to convert the position of bubbles so that it has yolov8 format for each cropped images.
+
+### Forth observation on the dataset
+
++ Some duplicate bubbles have different class.
+
+### Processing the error
+
++ Duplicated bounding boxes:
+  + We can use the IOU to detect these error bounding boxes.
++ Redundant bounding boxes:
+  + We can visuallize and define the rules to remove these error bounding boxes.
++ Missing bounding boxes:
+  + We can visuallize and define the rules to replace these error bounding boxes.
+  
