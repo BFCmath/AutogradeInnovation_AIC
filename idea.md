@@ -29,12 +29,17 @@
   + [ ] Augment the data
   + [X] Yolov8
   + [ ] Analyze the error
-+ [ ] Predict testing set 1
++ [X] Predict testing set 1
   + [X] Detect the contours
   + [X] Sort the contours
   + [X] Cut the images
+  + [X] Inference the images using fine-tuned model
++ [ ] Predict testing set 2
+  + [ ] Detect the contours
+  + [ ] Sort the contours
+  + [ ] Cut the images
   + [ ] Inference the images using fine-tuned model
-
+  
 ## Observations
 
 ### First observation on the dataset
