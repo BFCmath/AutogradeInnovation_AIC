@@ -20,11 +20,11 @@
     + [X] Remove the redundants
     + [X] Replace the missings
   + [X] Replace the 2-labeled bboxes with true labels
-+ [ ] Build pipeline
++ [X] Build pipeline
   + [X] Detecting the contours
   + [X] Sorting the contours
   + [X] Cutting the images
-  + [ ] End-to-end pipeline
+  + [X] End-to-end pipeline
 + [ ] Finetune the model
   + [ ] Augment the data
   + [X] Yolov8
@@ -34,12 +34,7 @@
   + [X] Sort the contours
   + [X] Cut the images
   + [X] Inference the images using fine-tuned model
-+ [ ] Predict testing set 2
-  + [ ] Detect the contours
-  + [ ] Sort the contours
-  + [ ] Cut the images
-  + [ ] Inference the images using fine-tuned model
-  
+
 ## Observations
 
 ### First observation on the dataset
